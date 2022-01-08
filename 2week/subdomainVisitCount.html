@@ -1,0 +1,58 @@
+<script>
+var getDomains = (domain) => {
+    const OFFSET = 1
+    const list = [];
+    let d = domain
+    let hasDot = d.indexOf('.') > -1;
+    
+    while(hasDot){
+        list.push(d)
+        hasDot = d.indexOf('.') > -1
+        d = d.substr(d.indexOf('.') + OFFSET);
+    }
+    
+    return list;
+}
+
+var convertObjectToArray = (hashmap) =>{ 
+     const resArray = []
+     Object.entries(hashmap).forEach(([key, value]) => {
+      resArray.push(value + ' ' + key)
+    });
+    return resArray;
+}
+
+var buildHashMap = (cpdomains) => {
+    const hashmap  = {};
+    
+    for(let i = 0 ; i <  cpdomains.length ; i++){
+        const COUNT_INDEX  = 0
+        const DOMAIN_INDEX = 1;
+        const result = cpdomains[i].split(' ');
+        const count = result[COUNT_INDEX]
+        const domain = result[DOMAIN_INDEX]
+        const domains  = getDomains(domain);
+        
+        for(let d in domains){
+            const key = domains[d];
+            if(!hashmap[key]){
+                hashmap[key] = Number(count);
+                continue;
+            }
+                    
+            hashmap[key] += Number(count);
+        }
+    }
+    return hashmap
+}
+
+
+var domainsVisits = function(cpdomains) {
+    const hashmap  = buildHashMap(cpdomains);
+    return convertObjectToArray(hashmap);
+};
+
+console.log(domainsVisits(["9001 discuss.leetcode.com"]))
+console.log(domainsVisits( ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]))
+
+</script>

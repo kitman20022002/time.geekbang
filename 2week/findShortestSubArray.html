@@ -1,0 +1,25 @@
+<script>
+var findShortestSubArray = function(nums) {
+    let maxDegree = Infinity;
+     
+    const hashmap = {}
+    for(let i  =0 ;i < nums.length ; i++){
+        const key = nums[i];
+        if(!hashmap[key]){
+            hashmap[key] = {degree: 0 , left: i}
+            continue;
+        }
+        hashmap[key].degree += 1
+        hashmap[key].right = i
+        const totalDegree = hashmap[key].right - hashmap[key].left + 1;
+        const t = totalDegree > hashmap[key].degree 
+   
+        if(t && totalDegree < maxDegree){
+            maxDegree = totalDegree;
+        }
+    }
+    return maxDegree;
+};
+console.log(findShortestSubArray([1,2,2,3,1]))
+console.log(findShortestSubArray([1,2,4,1,9]))
+</script>

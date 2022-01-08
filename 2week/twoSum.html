@@ -1,0 +1,15 @@
+<script>
+var twoSum = function(nums, target) {
+    const hashmap =  {}
+    for(let i  = 0 ; i < nums.length ; i++){        
+        const findNum = target - nums[i]
+        if(!Object.prototype.hasOwnProperty.call(hashmap, findNum.toString())){
+            hashmap[nums[i]] = i
+            continue;
+        }
+        return [hashmap[findNum] , i];
+    }
+
+};
+twoSum([2,7,11,15], 9)
+</script>
